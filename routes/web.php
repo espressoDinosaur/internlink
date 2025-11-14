@@ -5,13 +5,25 @@ use Inertia\Inertia;
 use Laravel\Fortify\Features;
 use App\Models\Internship;
 
+Route::get('interns/registration', function () {
+    return Inertia::render('interns/InternsRegistration', [
+        'canRegister' => Features::enabled(Features::registration()),
+    ]);
+})->name('internregistration');
+
+Route::get('/login', function () {
+    return Inertia::render('auth/Login', [
+        'canRegister' => Features::enabled(Features::registration()),
+    ]);
+})->name('login');
+
 Route::get('/', function () {
     return Inertia::render('Home', [
         'canRegister' => Features::enabled(Features::registration()),
     ]);
 })->name('home');
 
-Route::get('/profile', function () {
+Route::get('/userprofile', function () {
     return Inertia::render('Profile', [
         'canRegister' => Features::enabled(Features::registration()),
     ]);

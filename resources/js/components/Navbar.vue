@@ -4,7 +4,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 const navItems = [
     { name: 'Home', path: '/' },
     { name: 'Messages', path: '/messages' },
-    { name: 'Profile', path: '/profile' },
+    { name: 'Profile', path: '/userprofile' },
 ];
 
 const getNavClass = (path) => {
@@ -39,9 +39,11 @@ const getNavClass = (path) => {
                 </div>
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                     <div class="relative ml-3">
-                        <div class="rounded-md bg-[#205E87] px-3 py-2 text-sm font-medium text-white">
-                            Login
-                        </div>
+                        <a href="/login">
+                            <div class="rounded-md bg-[#205E87] px-3 py-2 text-sm font-medium text-white">
+                                Login
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 <script setup>
 </script>
 <template>
-    <div class="relative bg-neutral-primary-soft w-full p-6 border border-default rounded-2xl shadow-xs mb-6">
+    <div class="relative bg-neutral-primary-soft w-full p-6 border border-default rounded-2xl shadow-xs mb-4">
         <div class="flex flex-col items-center">
             <img class="w-32 h-32 mb-6 rounded-full ring-3 ring-[#205E87] p-2" src="profile/zenitsu.jpg" alt="Bonnie image"/>
             <h5 class="mb-0.5 text-xl font-bold tracking-tight text-heading">
