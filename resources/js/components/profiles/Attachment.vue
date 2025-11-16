@@ -1,29 +1,50 @@
-<script setup></script>
-<template>
-    <!--
-    FILE ICON:
-    pdf - <i class="bi bi-file-earmark-pdf-fill"></i>
-    docx - <i class="bi bi-file-earmark-word-fill"></i>
-    xlsl - <i class="bi bi-file-earmark-excel-fill"></i>
+<script setup>
+import { computed } from 'vue';
 
-    COLOR:
-    pdf - text-[#FB3748]
-    docx - text-blue-600
-    xlsl - text-[#1FC16B]
-    *change color exept for trash
-    -->
-    <div class="border-l-4 border-[#FB3748] pl-3">
-        <div class="flex justify-between">
-            <div class="font-bold">
-                <span class="text-[#FB3748] mr-2"><i class="bi bi-file-earmark-pdf-fill"></i></span>
-                Gabor_Updated_Resume.pdf
+const props = defineProps({
+    file: {
+        type: Object,
+        required: true
+    }
+});
+
+// Compute extension safely
+const extension = computed(() => {
+    return props.file.attachment_filename.split('.').pop().toLowerCase();
+});
+
+const iconClass = computed(() => {
+    const icons = {
+        pdf: 'bi bi-file-earmark-pdf-fill',
+        docx: 'bi bi-file-earmark-word-fill',
+        xlsx: 'bi bi-file-earmark-excel-fill',
+    };
+    return icons[extension.value] || 'bi bi-file-earmark-fill';
+});
+
+const colorClass = computed(() => {
+    const colors = {
+        pdf: 'text-[#FB3748]',
+        docx: 'text-blue-600',
+        xlsx: 'text-[#1FC16B]',
+    };
+    return colors[extension.value] || 'text-gray-500';
+});
+</script>
+
+<template>
+    <div class="border-l-4 pl-3 mb-4 border-[#205E87]">
+        <div class="flex justify-between items-center">
+            <div class="font-bold flex items-center">
+                <span class="mr-2" :class="colorClass"><i :class="iconClass"></i></span>
+                {{ props.file.attachment_filename }}
             </div>
-            <div class="text-[#FB3748]">
+            <div class="text-gray-400 cursor-pointer">
                 <i class="bi bi-trash-fill"></i>
             </div>
         </div>
         <div class="text-gray-500">
-            Uploaded November 14, 2025
+            Uploaded {{ new Date(props.file.created_uploaded).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) }}
         </div>
     </div>
 </template>

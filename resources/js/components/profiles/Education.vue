@@ -1,17 +1,22 @@
-<script setup></script>
+<script setup>
+defineProps({
+    education: Object,
+});
+</script>
+
 <template>
-    <div class="border-l-4 border-blue-500 pl-3">
+    <div class="border-l-4 border-[#205E87] pl-3">
         <div class="flex justify-between">
             <div class="text-lg font-bold">
-                Bachelor of Science in Information Technology
+                {{ education.course_program }}
             </div>
             <div class="text-lg font-bold">
-                2021 - 2025
+                {{ education.start_year }} - {{ education.end_year }}
             </div>
         </div>
         <ul class="list-none text-gray-500">
-            <li>Central Luzon State University</li>
-            <li>Science City of Munoz Nueva Ecija</li>
+            <li>{{ education.institution }}</li>
+            <li>{{ education.school_address }}</li>
         </ul>
     </div>
 </template>

@@ -5,7 +5,13 @@ import EducationCard from '@/components/profiles/EducationCard.vue';
 import ExperienceCard from '@/components/profiles/ExperienceCard.vue';
 import PersonalInformationCard from '@/components/profiles/PersonalInformationCard.vue';
 import ProfileQuickLinks from '@/components/profiles/ProfileQuickLinks.vue';
+import SkillCard from '@/components/profiles/SkillCard.vue';
 import UserProfileCard from '@/components/profiles/UserProfileCard.vue';
+
+defineProps({
+    user: Object,
+    profile: Object
+});
 </script>
 
 <template>
@@ -13,14 +19,15 @@ import UserProfileCard from '@/components/profiles/UserProfileCard.vue';
     <div class="mx-auto mt-20 max-w-7xl px-2 sm:px-6 lg:px-8">
         <div class="grid grid-cols-3 gap-4">
             <div class="">
-                <UserProfileCard/>
+                <UserProfileCard :user="user" :internProfile="profile" />
                 <ProfileQuickLinks/>
             </div>
             <div class="col-span-2">
-                <PersonalInformationCard/>
-                <EducationCard />
-                <ExperienceCard />
-                <AttachmentCard />
+                <PersonalInformationCard :user="user" :internProfile="profile" />
+                <EducationCard :educations="profile?.education || []" />
+                <ExperienceCard :experiences="profile?.experiences || []" />
+                <AttachmentCard :attachments="profile?.attachments || []" />
+                <SkillCard :skills="profile?.skills || []" />
             </div>
         </div>
     </div>

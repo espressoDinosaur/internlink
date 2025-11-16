@@ -1,5 +1,13 @@
 <script setup>
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { ref, onMounted } from "vue";
+
+const email = ref("");
+
+onMounted(() => {
+    const params = new URLSearchParams(window.location.search);
+    email.value = params.get("email") ?? "";
+});
 </script>
 
 <template>
@@ -328,7 +336,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
                         Please select a PDF or DOC file.
                     </p>
                     <div class="flex w-full items-center justify-center">
-                        <div class="bg-neutral-secondary-medium border-default-strong rounded-base flex h-64 w-full flex-col items-center justify-center border border-dashed">
+                        <div class="bg-neutral-secondary-medium border-default-strong rounded-lg flex h-64 w-full flex-col items-center justify-center border border-dashed">
                             <div class="text-body flex flex-col items-center justify-center pt-5 pb-6">
                                 <i class="bi bi-cloud-arrow-up text-4xl font-semibold"></i>
                                 <p class="mb-2 text-sm">
@@ -339,7 +347,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
                                     <span class="font-semibold">30MB</span>
                                 </p>
                                 <!-- Upload Button -->
-                                <button type="button" onclick="document.getElementById('resume').click()" class="bg-blue-600 rounded-lg hover:bg-blue-600-strong focus:ring-blue-600-medium rounded-base box-border inline-flex items-center border border-transparent px-3 py-2 text-sm leading-5 font-medium text-white shadow-xs focus:ring-4 focus:outline-none">
+                                <button type="button" onclick="document.getElementById('resume').click()" class="bg-blue-600 rounded-lg hover:bg-blue-600-strong focus:ring-blue-600-medium rounded-lg box-border inline-flex items-center border border-transparent px-3 py-2 text-sm leading-5 font-medium text-white shadow-xs focus:ring-4 focus:outline-none">
                                     <i class="bi bi-search mr-2"></i>
                                     Browse file
                                 </button>

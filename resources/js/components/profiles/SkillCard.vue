@@ -1,8 +1,8 @@
 <script setup>
-import Education from './Education.vue';
+import Skill from './Skill.vue';
 
 defineProps({
-    educations: {
+    skills: {
         type: Array,
         default: () => []
     }
@@ -12,18 +12,20 @@ defineProps({
 <template>
     <div class="bg-neutral-primary-soft border-default relative mb-4 w-full rounded-2xl border p-6 shadow-xs">
         <div class="mb-3 text-xl font-bold text-[[#205E87]]">
-            Educational background
+            Skills
         </div>
         <hr class="my-3">
-        <div v-if="educations.length">
-            <Education 
-                v-for="edu in educations" 
-                :key="edu.id" 
-                :education="edu" 
+
+        <div class="flex flex-wrap gap-2">
+            <Skill 
+                v-for="skill in skills" 
+                :key="skill.id" 
+                :skill="skill" 
             />
         </div>
-        <div v-else class="text-gray-500">
-            No education data yet.
+
+        <div v-if="skills.length === 0" class="text-gray-500 mt-2">
+            No skills yet.
         </div>
     </div>
 </template>

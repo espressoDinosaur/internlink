@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 use App\Models\Internship;
+use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Auth;
+
+Route::post('/auth/check', [AuthController::class, 'checkUser'])->name('auth.check');
 
 Route::get('interns/registration', function () {
     return Inertia::render('interns/InternsRegistration', [
@@ -18,14 +22,22 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::get('/', function () {
-    return Inertia::render('Home', [
-        'canRegister' => Features::enabled(Features::registration()),
-    ]);
+    return Inertia::render('Home');
 })->name('home');
 
 Route::get('/userprofile', function () {
+    $user = Auth::user();
+
+    $profile = null;
+    if ($user) {
+        $profile = \App\Models\Intern::with(['education', 'experiences', 'skills', 'attachments'])
+            ->where('user_id', $user->id)
+            ->first();
+    }
+
     return Inertia::render('Profile', [
-        'canRegister' => Features::enabled(Features::registration()),
+        'user' => $user,
+        'profile' => $profile,
     ]);
 })->name('profile');
 
@@ -41,6 +53,30 @@ Route::get('/applications', function () {
     ]);
 })->name('applications');
 
+Route::get('/recruiter/dashboard', function () {
+    return Inertia::render('recruiters/Dashboard', [
+        'canRegister' => Features::enabled(Features::registration()),
+    ]);
+})->name('dashboard');
+
+Route::get('/recruiter/applications', function () {
+    return Inertia::render('recruiters/Applications', [
+        'canRegister' => Features::enabled(Features::registration()),
+    ]);
+})->name('applications');
+
+Route::get('/recruiter/applicants', function () {
+    return Inertia::render('recruiters/Applicants', [
+        'canRegister' => Features::enabled(Features::registration()),
+    ]);
+})->name('applicants');
+
+Route::get('/recruiter/createjob', function () {
+    return Inertia::render('recruiters/CreateJob', [
+        'canRegister' => Features::enabled(Features::registration()),
+    ]);
+})->name('createjob');
+
 Route::get('/internships', function () {
     $internships = Internship::with('recruiter')
         ->orderBy('created_at', 'desc')
@@ -50,5 +86,23 @@ Route::get('/internships', function () {
         'internships' => $internships
     ]);
 })->name('internships');
+
+Route::get('/recruiter/joblisting', function () {
+    $joblisting = Internship::with('recruiter')
+        ->orderBy('created_at', 'desc')
+        ->paginate(6);
+
+    return Inertia::render('recruiters/JobListing', [
+        'joblisting' => $joblisting
+    ]);
+})->name('joblisting');
+
+Route::post('/logout', function () {
+    Auth::logout();
+    request()->session()->invalidate(); 
+    request()->session()->regenerateToken();
+
+    return redirect('/');
+})->name('logout');
 
 require __DIR__.'/settings.php';
