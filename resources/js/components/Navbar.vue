@@ -63,21 +63,20 @@ const logout = () => {
                         <template v-if="user">
                             <button @click="toggleDropdown" class="flex items-center gap-2 focus:outline-none">
                                 <img
-                                    :src="user.avatar_url || '/profile/zenitsu.jpg'"
+                                    :src="user?.profile_photo_path || '/profile/default.png'"
                                     alt="Profile"
                                     class="h-10 w-10 rounded-full object-cover border-2 border-white shadow"
                                 />
                             </button>
-                            <!-- DROPDOWN -->
                             <div v-show="dropdownOpen" class="origin-top-right absolute right-0 mt-2 w-60 rounded-md shadow-md bg-white ring-1 ring-gray-300 ring-opacity-5 focus:outline-none z-50 py-1 px-3">
                                 <div class="py-1">
-                                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                                    <a href="/applications" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                                         <i class="bi bi-file-earmark-text mr-2"></i>
                                         My Applications
                                     </a>
-                                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                                    <a href="/options" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                                         <i class="bi bi-gear mr-2"></i>
-                                        Settings
+                                        Options
                                     </a>
                                     <hr class="my-3">
                                     <button @click="logout" class="w-full text-left block px-4 py-2 text-[#FB3748] hover:bg-gray-100 rounded-lg">
@@ -87,8 +86,6 @@ const logout = () => {
                                 </div>
                             </div>
                         </template>
-
-                        <!-- USER LOGGED OUT -->
                         <template v-else>
                             <div class="flex gap-4">
                                 <a href="/login" class="rounded-md bg-[#205E87] px-3 py-2 text-sm font-medium text-white">

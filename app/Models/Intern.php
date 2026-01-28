@@ -46,4 +46,9 @@ class Intern extends Model
     {
         return $this->hasMany(FileAttachment::class);
     }
+
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
+    }
 }

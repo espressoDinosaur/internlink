@@ -13,4 +13,9 @@ class Internship extends Model
     {
         return $this->belongsTo(Recruiter::class);
     }
+
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
+    }
 }

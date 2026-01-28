@@ -3,17 +3,16 @@ import { defineProps, computed } from 'vue';
 
 const props = defineProps({
     internship: Object,
-    required: true,
+    selected: Boolean
 });
 
 const timeAgo = computed(() => {
-    if (!props.internship?.created) return '';
+    if (!props.internship?.created_at) return '';
 
-    const created = new Date(props.internship.created);
+    const created = new Date(props.internship.created_at);
     const now = new Date();
-    const diffMs = now - created; // difference in milliseconds
-
-    const diffHrs = Math.floor(diffMs / (1000 * 60 * 60)); // hours
+    const diffMs = now - created;
+    const diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
     if (diffHrs < 24) {
         return `${diffHrs} hour${diffHrs !== 1 ? 's' : ''} ago`;
     } else {
@@ -25,12 +24,13 @@ const timeAgo = computed(() => {
 const shortDescription = computed(() => {
     if (!props.internship?.description) return '';
     const words = props.internship.description.split(' ');
-    if (words.length <= 14) return props.internship.description;
-    return words.slice(0, 14).join(' ') + '...';
+    return words.length <= 14 ? props.internship.description : words.slice(0, 14).join(' ') + '...';
 });
 </script>
+
 <template>
-    <div v-if="internship" class="bg-neutral-primary-soft block max-w-sm p-5 border border-default rounded-2xl shadow-xs">
+    <div class="bg-neutral-primary-soft block max-w-sm p-5 border border-default rounded-2xl shadow-xs cursor-pointer"
+        :class="selected ? 'ring-2 ring-[#205E87]' : ''">
         <div class="text-xl font-semibold tracking-tight text-heading">
             {{ internship.title }}
         </div>

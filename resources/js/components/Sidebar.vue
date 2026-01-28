@@ -30,12 +30,9 @@ const getNavClass = (path) => {
             </ul>
             <ul class="space-y-1 font-medium">
                 <li>
-                    <a 
-                        href="#"
-                        class="flex items-center px-3 py-2 rounded-lg text-body hover:bg-gray-100 hover:text-fg-brand"
-                    >
+                    <a href="#" class="flex items-center px-3 py-2 rounded-lg text-body hover:bg-gray-100 hover:text-fg-brand">
                         <i class="bi bi-box-arrow-in-right"></i>
-                        <span class="ms-3 whitespace-nowrap">Sign In</span>
+                        <span class="ms-3 whitespace-nowrap">Sign Out</span>
                     </a>
                 </li>
             </ul>
